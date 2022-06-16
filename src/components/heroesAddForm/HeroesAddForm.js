@@ -17,16 +17,20 @@ import { useEffect } from 'react';
 
 const HeroesAddForm = () => {
 
-    const {heroes, heroesLoadingStatus} = useSelector(state => state);
+    const {heroes, filters, heroesLoadingStatus} = useSelector(state => state);
     const dispatch = useDispatch();
     const {request} = useHttp();
     const [name, setName] = useState('');
     const [text, setText] = useState('');
     const [element, setElement] = useState('');
 
+
     const onClickCreateButton = (e) => {
         e.preventDefault();
-        const newArr = [...heroes, {id: uuidv4(), name, description: text, element}]; 
+        const newArr = [...heroes, {id: uuidv4(), 
+                                    name, 
+                                    description: text, 
+                                    element}]; 
         dispatch(heroesAdd(newArr));
     }
 
@@ -43,6 +47,18 @@ const HeroesAddForm = () => {
             default:break;
         }
     }
+
+    const renderOption = (arr) => {
+        if (arr.length === 0) {
+            return <h5 className="text-center mt-5">Фильтров нет</h5>
+        }
+
+        return arr.map(({name,label, ...item}) => {
+            return name !== 'all' ? <option value={name}>{label}</option>: null;            
+        })
+    }
+
+    const elements = renderOption(filters);
 
     return (
         <form className="border p-4 shadow-lg rounded"
@@ -82,10 +98,7 @@ const HeroesAddForm = () => {
                     name="element"
                     onChange={onValueChange}>
                     <option >Я владею элементом...</option>
-                    <option value="fire">Огонь</option>
-                    <option value="water">Вода</option>
-                    <option value="wind">Ветер</option>
-                    <option value="earth">Земля</option>
+                    {elements}
                 </select>
             </div>
 

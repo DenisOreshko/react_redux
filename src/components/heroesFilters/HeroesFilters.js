@@ -26,13 +26,19 @@ const HeroesFilters = () => {
         //eslint-disable-next-line
     }, []);
 
-    const onFilter = (name, active) => {
-        filters.map(item => {  
-            item.active = '';          
-            if(item.name === name){
-                item.active = 'active';
-            }            
+    useEffect(() => {
+        //console.log('useEffect() filters');
+        // dispatch(filtersFetching());
+        // request("http://localhost:3001/filters", 'POST', filters)
+        //     .then(data => dispatch(filtersFetched(data)))
+        //     .catch(() => dispatch(heroesFetchingError()))
+    }, [filters]);
+
+    const onFilter = (name) => {
+        const newArr = filters.map(function(item) {
+            return item.name === name ? {...item, active:'active'} : { ...item, active:''};
         });
+        dispatch(filtersFetched(newArr))
     }
 
     const renderFilters = (arr) => {

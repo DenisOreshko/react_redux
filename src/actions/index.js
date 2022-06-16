@@ -5,7 +5,6 @@ export const heroesFetching = () => {
 }
 
 export const heroesFetched = (heroes) => {
-    console.log(heroes);
     return {
         type: 'HEROES_FETCHED',
         payload: heroes
@@ -32,7 +31,6 @@ export const filtersFetching = () => {
 }
 
 export const filtersFetched = (filters) => {
-    console.log(filters);
     return {
         type: 'FILTERS_FETCHED',
         payload: filters
