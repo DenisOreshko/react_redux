@@ -1,54 +1,60 @@
 {
-    "heroes": [
-        {
-            "id": 1,
-            "name": "Первый герой",
-            "description": "Первый герой в рейтинге!",
-            "element": "fire"
-        },
-        {
-            "id": 2,
-            "name": "Неизвестный герой",
-            "description": "Скрывающийся в тени",
-            "element": "wind"
-        },
-        {
-            "id": 3,
-            "name": "Морской герой",
-            "description": "Как аквамен, но не из DC",
-            "element": "water"
-        }
-    ],
-    "filters": [
-        {   
-            "name":"all",
-            "label":"Все",
-            "clazz":"outline-dark",
-            "active":"active"
-        },
-        {   
-            "name":"fire",
-            "label":"Огонь",
-            "clazz":"danger",
-            "active":""
-        },
-        {   
-            "name":"water",
-            "label":"Вода",
-            "clazz":"primary",
-            "active":""
-        },
-        {   
-            "name":"wind",
-            "label":"Ветер",
-            "clazz":"success",
-            "active":""
-        },
-        {   
-            "name":"earth",
-            "label":"Земля",
-            "clazz":"secondary",
-            "active":""
-        }
-    ]
+  "heroes": [
+    {
+      "id": 1,
+      "name": "Первый герой",
+      "description": "Первый герой в рейтинге!",
+      "element": "fire"
+    },
+    {
+      "id": 2,
+      "name": "Неизвестный герой",
+      "description": "Скрывающийся в тени",
+      "element": "wind"
+    },
+    {
+      "id": 3,
+      "name": "Морской герой",
+      "description": "Как аквамен, но не из DC",
+      "element": "water"
+    },
+    {
+      "id": "a629ca25-ec20-45a4-ae51-4c475d9a7c43",
+      "name": "vcx",
+      "description": "ds",
+      "element": "water"
+    }
+  ],
+  "filters": [
+    {
+      "name": "all",
+      "label": "Все",
+      "clazz": "outline-dark",
+      "active": "active"
+    },
+    {
+      "name": "fire",
+      "label": "Огонь",
+      "clazz": "danger",
+      "active": ""
+    },
+    {
+      "name": "water",
+      "label": "Вода",
+      "clazz": "primary",
+      "active": ""
+    },
+    {
+      "name": "wind",
+      "label": "Ветер",
+      "clazz": "success",
+      "active": ""
+    },
+    {
+      "name": "earth",
+      "label": "Земля",
+      "clazz": "secondary",
+      "active": ""
+    }
+  ]
 }

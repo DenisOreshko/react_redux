@@ -1,8 +1,8 @@
 import {useHttp} from '../../hooks/http.hook';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { heroesFetching, heroesFetched, heroesFetchingError } from '../../actions';
+import { heroDeleted, heroesFetching, heroesFetched, heroesFetchingError } from '../../actions';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -17,31 +17,18 @@ const HeroesList = () => {
     const {request} = useHttp();
 
     useEffect(() => {
-        console.log('useEffect() HeroesList')
-        //dispatch(heroesFetching());
+        dispatch(heroesFetching());
         request("http://localhost:3001/heroes")
             .then(data => dispatch(heroesFetched(data)))
             .catch(() => dispatch(heroesFetchingError()))
-
-        // eslint-disable-next-line
-    }, []);
-
-    // useEffect(() => {
-    //     //dispatch(heroesFetching());
-    //     // request("http://localhost:3001/heroes/3", 'DELETE')
-    //     //     .then(data => dispatch(heroesFetched(data)))
-    //     //     .catch(() => dispatch(heroesFetchingError()))
-    //     console.log('useEffect() heroes');
-
-    //     // eslint-disable-next-line
-    // }, [heroes]);
-
-    const deleteItemById = (id) => {
-        // dispatch(heroesFetching());
-        // request(`http://localhost:3001/heroes/${id}`, 'DELETE')
-        //     .then(data => dispatch(heroesFetched(data)))
-        //     .catch(() => dispatch(heroesFetchingError()))
-    }
+    }, [request, dispatch]);
+    
+    const deleteItem =  useCallback((id) => {
+        request(`http://localhost:3001/heroes/${id}`, 'DELETE')            
+            .then(res => console.log('Success Deleted'))
+            .then(dispatch(heroDeleted(id)))
+            .catch(err=>console.log(err))
+    }, [request, dispatch]);
 
     if (heroesLoadingStatus === "loading") {
         return <Spinner/>;
@@ -51,12 +38,13 @@ const HeroesList = () => {
 
     const filtersData  = (arr) => {
         const filterActive = filters.find(item => item.active === 'active');
-
-        if(filterActive.name === 'all'){
-            return arr;
-        }
-        if(filterActive.name){
-            return arr.filter(item => item.element === filterActive.name);
+        if(filterActive){
+            if(filterActive.name === 'all'){
+                return arr;
+            }
+            if(filterActive.name){
+                return arr.filter(item => item.element === filterActive.name);
+            }
         }
         return arr;
     }
@@ -71,10 +59,7 @@ const HeroesList = () => {
         })
     }
 
-    const deleteItem = (id) => {
-        const data  = heroes.filter(item => item.id !== id);
-        dispatch(heroesFetched(data));
-    }
+    
 
     const elements = renderHeroesList(heroes);
 

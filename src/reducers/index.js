@@ -1,7 +1,7 @@
 const initialState = {
     heroes: [],
     heroesLoadingStatus: 'idle',
-    filters: ['joppa']
+    filters: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -22,11 +22,18 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 heroesLoadingStatus: 'error'
             }
-        case 'HEROES_ADD':
+        case 'HEROES_ADDED':
+            const newHeroes = [...state.heroes, action.payload];  
             return {
                 ...state,
-                heroes: action.payload,
+                heroes: newHeroes,
                 heroesLoadingStatus: 'idle'
+            }
+        case 'HERO_DELETED':
+            const newHeroesList = state.heroes.filter(item => item.id !== action.payload);
+            return {
+                ...state,
+                heroes: newHeroesList,
             }
         case 'FILTERS_FETCHING':
             return {

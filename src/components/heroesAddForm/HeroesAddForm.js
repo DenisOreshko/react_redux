@@ -1,9 +1,8 @@
 import {v4 as uuidv4} from 'uuid';
 import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {heroesAdd, heroesFetching, heroesFetched, heroesFetchingError} from '../../actions';
+import {heroAdded} from '../../actions';
 import {useHttp} from '../../hooks/http.hook';
-import { useEffect } from 'react';
 
 // Задача для этого компонента:
 // Реализовать создание нового героя с введенными данными. Он должен попадать
@@ -17,7 +16,7 @@ import { useEffect } from 'react';
 
 const HeroesAddForm = () => {
 
-    const {heroes, filters, heroesLoadingStatus} = useSelector(state => state);
+    const {filters} = useSelector(state => state);
     const dispatch = useDispatch();
     const {request} = useHttp();
     const [name, setName] = useState('');
@@ -27,17 +26,17 @@ const HeroesAddForm = () => {
 
     const onClickCreateButton = (e) => {
         e.preventDefault();
-        const newArr = [...heroes, {id: uuidv4(), 
-                                    name, 
-                                    description: text, 
-                                    element}]; 
-        dispatch(heroesAdd(newArr));
-    }
 
-    useEffect(()=>{
-        console.log('useEffect() Add Form');
+        const newHero = {id: uuidv4(), 
+                         name, 
+                         description: text, 
+                         element};                        
 
-    },[])
+        request(`http://localhost:3001/heroes/`, 'POST', JSON.stringify(newHero))
+            .then(res => console.log(res.name, 'Success Added'))
+            .then(dispatch(heroAdded(newHero)))
+            .catch(err => console.log(err));
+    };
 
     const onValueChange = (e) => {
         switch(e.target.name){
@@ -52,9 +51,12 @@ const HeroesAddForm = () => {
         if (arr.length === 0) {
             return <h5 className="text-center mt-5">Фильтров нет</h5>
         }
+        
+        return arr.map(({name,label}) => {
 
-        return arr.map(({name,label, ...item}) => {
-            return name !== 'all' ? <option value={name}>{label}</option>: null;            
+            if(name === 'all') return;
+
+            return <option key={name} value={name}>{label}</option>            
         })
     }
 
@@ -96,7 +98,8 @@ const HeroesAddForm = () => {
                     className="form-select" 
                     id="element" 
                     name="element"
-                    onChange={onValueChange}>
+                    onChange={onValueChange}
+                    value={element}>
                     <option >Я владею элементом...</option>
                     {elements}
                 </select>
@@ -106,5 +109,4 @@ const HeroesAddForm = () => {
         </form>
     )
 }
-
 export default HeroesAddForm;

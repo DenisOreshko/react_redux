@@ -1,5 +1,3 @@
-import {v4 as uuidv4} from 'uuid';
-import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {filtersFetching, filtersFetched, heroesFetchingError} from '../../actions';
 import {useHttp} from '../../hooks/http.hook';
@@ -12,27 +10,17 @@ import { useEffect } from 'react';
 // Представьте, что вы попросили бэкенд-разработчика об этом
 
 const HeroesFilters = () => {
-    const {filters, heroesLoadingStatus} = useSelector(state => state);
+    const {filters} = useSelector(state => state);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
     useEffect(() => {
-        console.log('useEffect() HeroesFilters')
         dispatch(filtersFetching());
         request("http://localhost:3001/filters")
             .then(data => dispatch(filtersFetched(data)))
             .catch(() => dispatch(heroesFetchingError()))
+    }, [dispatch, request]);
 
-        //eslint-disable-next-line
-    }, []);
-
-    useEffect(() => {
-        //console.log('useEffect() filters');
-        // dispatch(filtersFetching());
-        // request("http://localhost:3001/filters", 'POST', filters)
-        //     .then(data => dispatch(filtersFetched(data)))
-        //     .catch(() => dispatch(heroesFetchingError()))
-    }, [filters]);
 
     const onFilter = (name) => {
         const newArr = filters.map(function(item) {
@@ -65,7 +53,7 @@ const HeroesFilters = () => {
     )
 }
 
-const Filter = ({name, label, clazz, active, onFilter}) => {
+const Filter = ({label, clazz, active, onFilter}) => {
     return (
         <button onClick={onFilter} className={`btn btn-${clazz} ${active}`}>{label}</button>
     )
