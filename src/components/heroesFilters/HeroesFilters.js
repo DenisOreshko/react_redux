@@ -1,7 +1,8 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {filtersFetching, filtersFetched, heroesFetchingError} from '../../actions';
+import {filtersFetching, filtersFetched, filtersFetchingError} from '../../actions';
 import {useHttp} from '../../hooks/http.hook';
 import { useEffect } from 'react';
+import Spinner from '../spinner/Spinner';
 // Задача для этого компонента:
 // Фильтры должны формироваться на основании загруженных данных
 // Фильтры должны отображать только нужных героев при выборе
@@ -10,7 +11,7 @@ import { useEffect } from 'react';
 // Представьте, что вы попросили бэкенд-разработчика об этом
 
 const HeroesFilters = () => {
-    const {filters} = useSelector(state => state);
+    const {filters, filtersLoadingStatus} = useSelector(state => state.filters);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
@@ -18,9 +19,14 @@ const HeroesFilters = () => {
         dispatch(filtersFetching());
         request("http://localhost:3001/filters")
             .then(data => dispatch(filtersFetched(data)))
-            .catch(() => dispatch(heroesFetchingError()))
+            .catch(() => dispatch(filtersFetchingError()))
     }, [dispatch, request]);
 
+    if (filtersLoadingStatus === "loading") {
+        return <Spinner/>;
+    } else if (filtersLoadingStatus === "error") {
+        return <h5 className="text-center mt-5">Ошибка загрузки</h5>
+    }
 
     const onFilter = (name) => {
         const newArr = filters.map(function(item) {

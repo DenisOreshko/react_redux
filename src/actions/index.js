@@ -42,3 +42,9 @@ export const filtersFetched = (filters) => {
         payload: filters
     }
 }
+
+export const filtersFetchingError = () => {
+    return {
+        type: 'FILTERS_FETCHING_ERROR'
+    }
+}
