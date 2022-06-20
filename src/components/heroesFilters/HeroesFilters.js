@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {filtersFetching, filtersFetched, filtersFetchingError} from '../../actions';
+import {filtersFetching, filtersFetched, filtersFetchingError, activeFilterChanged} from '../../actions';
 import {useHttp} from '../../hooks/http.hook';
 import { useEffect } from 'react';
 import Spinner from '../spinner/Spinner';
@@ -32,7 +32,8 @@ const HeroesFilters = () => {
         const newArr = filters.map(function(item) {
             return item.name === name ? {...item, active:'active'} : { ...item, active:''};
         });
-        dispatch(filtersFetched(newArr))
+        dispatch(filtersFetched(newArr));
+        dispatch(activeFilterChanged(name));
     }
 
     const renderFilters = (arr) => {

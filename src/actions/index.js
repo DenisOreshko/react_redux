@@ -30,6 +30,13 @@ export const heroDeleted = (id) => {
     }
 }
 
+export const activeFilterChanged = (filter) => {    
+    return {
+        type: 'ACTIVE_FILTER_CHANGED',
+        payload: filter
+    }
+}
+
 export const filtersFetching = () => {
     return {
         type: 'FILTERS_FETCHING'
