@@ -1,5 +1,4 @@
 import { createStore, combineReducers } from 'redux';
-import reducer from '../reducers';
 import heroes from '../reducers/heroes';
 import filters from '../reducers/filters';
 

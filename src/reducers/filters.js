@@ -1,6 +1,7 @@
 const initialState = {
     filtersLoadingStatus: 'idle',
-    filters: []
+    filters: [],
+    activeFilter:'all'
 }
 
 const filters = (state = initialState, action) => {
@@ -20,6 +21,11 @@ const filters = (state = initialState, action) => {
             return {
                 ...state,
                 filtersLoadingStatus: 'error'
+            }
+        case 'ACTIVE_FILTER_CHANGED': 
+            return {
+                ...state,
+                activeFilter: action.payload,
             }
         default: return state
     }

@@ -1,8 +1,6 @@
 const initialState = {
     heroes: [],
-    heroesLoadingStatus: 'idle',
-    filteredHeroes: [],
-    activeFilter:'all'
+    heroesLoadingStatus: 'idle'
 }
 
 const heroes = (state = initialState, action) => {
@@ -17,10 +15,6 @@ const heroes = (state = initialState, action) => {
                 ...state,
                 heroes: action.payload,
                 heroesLoadingStatus: 'idle',
-                filteredHeroes: state.activeFilter === 'all' ? 
-                                action.payload : 
-                                action.payload.filter(item => item.element === state.activeFilter)
-
             }
         case 'HEROES_FETCHING_ERROR':
             return {
@@ -30,28 +24,12 @@ const heroes = (state = initialState, action) => {
         case 'HEROES_ADDED':
             return {
                 ...state,
-                heroes: [...state.heroes, action.payload],
-                heroesLoadingStatus: 'idle',
-                filteredHeroes: state.activeFilter === 'all' ? 
-                                [...state.heroes, action.payload] : 
-                                [...state.heroes, action.payload].filter(item => item.element === state.activeFilter)
+                heroes: [...state.heroes, action.payload]
             }
         case 'HERO_DELETED':
-            const newHeroList = state.heroes.filter(item => item.id !== action.payload);
             return {
                 ...state,
-                heroes: newHeroList,
-                filteredHeroes: state.activeFilter === 'all' ? 
-                                newHeroList : 
-                                newHeroList.filter(item => item.element === state.activeFilter)
-            }
-        case 'ACTIVE_FILTER_CHANGED': 
-            return {
-                ...state,
-                activeFilter: action.payload,
-                filteredHeroes: action.payload === 'all' ? 
-                                state.heroes: 
-                                state.heroes.filter(item => item.element === action.payload)
+                heroes: state.heroes.filter(item => item.id !== action.payload),
             }
         default: return state
     }
