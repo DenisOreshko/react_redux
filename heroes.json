@@ -7,22 +7,28 @@
       "element": "fire"
     },
     {
-      "id": 2,
-      "name": "Неизвестный герой",
-      "description": "Скрывающийся в тени",
-      "element": "wind"
-    },
-    {
       "id": 3,
       "name": "Морской герой",
       "description": "Как аквамен, но не из DC",
       "element": "water"
     },
     {
-      "id": "0416ffe0-771a-4874-b586-6535aac35190",
-      "name": "gf",
-      "description": "df",
-      "element": "water"
+      "id": "1d0ad082-d39c-4f55-8634-4763cbff53a7",
+      "name": "Superman",
+      "description": "Wind",
+      "element": "wind"
+    },
+    {
+      "id": "a7424044-32c9-42f9-854c-f18d93db27b9",
+      "name": "Земля",
+      "description": "Google Earth",
+      "element": "earth"
+    },
+    {
+      "id": "69121186-5f6d-4144-8020-a656dce6bbc4",
+      "name": "Denis",
+      "description": "Superhero!",
+      "element": "fire"
     }
   ],
   "filters": [

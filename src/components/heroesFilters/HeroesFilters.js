@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchFilters, filtersFetched, activeFilterChanged} from '../../actions';
+import {fetchFilters, filtersFetched, activeFilterChanged} from '../heroesFilters/filtersSlice';
 import {useHttp} from '../../hooks/http.hook';
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 import Spinner from '../spinner/Spinner';
 // Задача для этого компонента:
 // Фильтры должны формироваться на основании загруженных данных
@@ -13,10 +13,10 @@ import Spinner from '../spinner/Spinner';
 const HeroesFilters = () => {
     const {filters, filtersLoadingStatus} = useSelector(state => state.filters);
     const dispatch = useDispatch();
-    const {request} = useHttp();
+    // const {request} = useHttp();
 
     useEffect(() => {
-        dispatch(fetchFilters(request));
+        dispatch(fetchFilters());
     }, []);
 
     if (filtersLoadingStatus === "loading") {
