@@ -18,7 +18,7 @@ const HeroesList = () => {
 
     useEffect(() => {
         dispatch(fetchHeroes());
-    }, []);
+    }, [dispatch]);
     
     const deleteItem =  useCallback((id) => {
         request(`http://localhost:3001/heroes/${id}`, 'DELETE')            

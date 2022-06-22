@@ -23,40 +23,39 @@
       "name": "sdags4",
       "description": "fd",
       "element": "water"
-    },
-    {
-      "id": "68b91a0b-4246-4191-8cb7-ae48accb0b04",
-      "name": "sdags4",
-      "description": "fd",
-      "element": "water"
     }
   ],
   "filters": [
     {
+      "id": "all",
       "name": "all",
       "label": "Все",
       "clazz": "outline-dark",
       "active": "active"
     },
     {
+      "id": "fire",
       "name": "fire",
       "label": "Огонь",
       "clazz": "danger",
       "active": ""
     },
     {
+      "id": "water",
       "name": "water",
       "label": "Вода",
       "clazz": "primary",
       "active": ""
     },
     {
+      "id": "wind",
       "name": "wind",
       "label": "Ветер",
       "clazz": "success",
       "active": ""
     },
     {
+      "id": "earth",
       "name": "earth",
       "label": "Земля",
       "clazz": "secondary",

@@ -1,6 +1,6 @@
 import {v4 as uuidv4} from 'uuid';
 import {useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {heroAdded} from '../heroesList/heroesSlice';
 import {useHttp} from '../../hooks/http.hook';
 import store from '../../store';
@@ -54,10 +54,7 @@ const HeroesAddForm = () => {
         }
         
         return arr.map(({name,label}) => {
-
-            if(name === 'all') return;
-
-            return <option key={name} value={name}>{label}</option>            
+            return name !== 'all' ? <option key={name} value={name}>{label}</option> : null;           
         })
     }
 
