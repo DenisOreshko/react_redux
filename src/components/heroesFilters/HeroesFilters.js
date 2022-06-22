@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchFilters, filtersFetched, activeFilterChanged} from '../heroesFilters/filtersSlice';
-import {useHttp} from '../../hooks/http.hook';
+import {fetchFilters, filtersFetched, activeFilterChanged, selectAll} from './filtersSlice';
+import store from '../../store';
 import {useEffect} from 'react';
 import Spinner from '../spinner/Spinner';
 // Задача для этого компонента:
@@ -11,9 +11,9 @@ import Spinner from '../spinner/Spinner';
 // Представьте, что вы попросили бэкенд-разработчика об этом
 
 const HeroesFilters = () => {
-    const {filters, filtersLoadingStatus} = useSelector(state => state.filters);
+    const filters = selectAll(store.getState());
+    const {filtersLoadingStatus} = useSelector(state => state.filters);
     const dispatch = useDispatch();
-    // const {request} = useHttp();
 
     useEffect(() => {
         dispatch(fetchFilters());
